@@ -16,11 +16,20 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
-  };
+      if (!n) {
+          return array[0]
+      }
+      var test = array.slice(0, n);
+      return test;
+  }
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    if (!n) {return array[array.length-1]}
+    if(n > array.length){n = array.length}
+    var check = array.splice(-array.length+1, n);
+    return check;
   };
 
   // Call iterator(value, key, collection) for each element of collection.
