@@ -27,7 +27,7 @@ var _ = { };
   // last element.
   _.last = function(array, n) {
     if (!n) {return array[array.length-1]}
-    if(n > array.length){n = array.length}
+    if(n > array.length){return array}
     var check = array.splice(-array.length+1, n);
     return check;
   };
@@ -35,38 +35,82 @@ var _ = { };
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   _.each = function(collection, iterator) {
+    for(var key in collection){
+      iterator(collection[key],key,collection);
+    }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
+    for(var i = 0; i < array.length;i++){
+      if(target === array[i]){
+        return i;
+      }
+  }
+  return -1;
   };
 
   // Return all elements of an array that pass a truth test ('iterator' function argument)
   _.filter = function(collection, iterator) {
+    var newArr =[];
+        for(var i =0; i < collection.length;i++){
+      if(iterator(collection[i])){
+        newArr.push(collection[i]);
+      }
+    }
+    return newArr;
   };
 
   // Return all elements of an array that don't pass a truth test (the 'iterator' function argument)
   _.reject = function(collection, iterator) {
+    var anotherArr = [];
+    for(var i =0;i<collection.length;i++){
+      if(!iterator(collection[i])){
+        anotherArr.push(collection[i]);
+      }
+    }
+    return anotherArr;
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-  };
+	var newArr =[];
+for(var i =0;i<array.length;i++ ){
+	if(newArr.indexOf(array[i]) === -1){
+		newArr.push(array[i]);
+	}
+}
+return newArr;
+  }
 
 
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
+    var newArr = [];
+    for(var i=0;i<array.length;i++){
+      newArr.push(iterator(array[i]));
+    }
+    return newArr;
   };
 
   // Takes an array of objects and returns and array of the values of
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(array, propertyName) {
-  };
+    var newArr =[];
+    for(var key in array){
+    newArr.push(array[key][propertyName]);
+    }
+    return newArr;
+  }
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
+    for(var key in list){
+    list[key].sort();
+    }
+    return list;
   };
 
   // Reduces an array or object to a single value by repetitively calling
