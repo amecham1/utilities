@@ -150,13 +150,24 @@ return newArr;
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    for(var key in collection){
-  if(iterator(collection[key])){
-    return true;
-  };
-}
-return false;
-  };
+    if (iterator === undefined) {
+        iterator = function () {
+          if (collection[key]) {
+            return true;
+          }
+          return false;
+        }
+      };
+      if (!iterator) {
+        iterator = function () {}
+      }
+      for (var key in collection) {
+        if(iterator(collection[key])) {
+          return true;
+        }
+      }
+      return false;
+    };
 
 
   /**
