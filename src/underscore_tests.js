@@ -117,20 +117,45 @@ return newArr;
   // iterator(previousValue, item) for each item. previousValue should be
   // the return value of the previous iterator call.
   _.reduce = function(collection, iterator, initialValue) {
-  };
+    return collection.reduce(function(a,b){
+         return a + b;
+       });
+
+     }
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
+    for(var key in collection){
+      if(collection[key] === target){
+        return true;
+      }
+    }
+    return false;
   };
 
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
+    if(arguments.length === 1){
+      return true;
+    }
+  for(var key in collection){
+    if(!iterator(collection[key])){
+      return false
+    };
+  }
+  return true;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    for(var key in collection){
+  if(iterator(collection[key])){
+    return true;
+  };
+}
+return false;
   };
 
 
