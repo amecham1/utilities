@@ -180,11 +180,28 @@ return newArr;
   // Extend a given object with all the properties of the passed in
   // object(s).
   _.extend = function(obj) {
-  };
+      var result = {};
+      for (var i = 0; i < arguments.length; i++) {
+        for (var key in arguments[i]) {
+            result[key] = arguments[i][key];
+        }
+      }
+      return result;
+    };
+
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var result ={};
+    for(var i=0;i<arguments.length;i++){
+      for(var key in arguments[i]){
+        if(result[key] === undefined){
+          result[key] = arguments[i][key];
+        }
+      }
+    }
+    return result;
   };
 
 
@@ -196,6 +213,17 @@ return newArr;
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
   _.once = function(func) {
+    var checkNum = 0;
+    var result;
+    return function () {
+      if (checkNum === 0) {
+        result = func();
+        checkNum = 1;
+        return result;
+      }else {
+        return result;
+      }
+    }
   };
 
   // Memoize an expensive function by storing its results. You may assume
